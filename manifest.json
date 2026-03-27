@@ -1,0 +1,28 @@
+{
+  "name": "TaskFlow Pro",
+  "short_name": "TaskFlow",
+  "description": "مدير مهام يومي احترافي",
+  "start_url": "/taskflowpro/",
+  "scope": "/taskflowpro/",
+  "display": "standalone",
+  "background_color": "#0b0d13",
+  "theme_color": "#4f7cff",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "https://nooroodaa.github.io/taskflowpro/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://nooroodaa.github.io/taskflowpro/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"]
+}
