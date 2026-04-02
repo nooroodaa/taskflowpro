@@ -8,8 +8,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="TaskFlow">
+<link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@latest" defer></script>
 <style>
 /* ═══════════════════════════════════════
    RESET & TOKENS
@@ -1314,7 +1315,7 @@ function renderTasks(){
   var sc=document.getElementById('searchCount');
   if(sc){sc.style.display=q?'block':'none';if(q)sc.textContent='نتائج البحث: '+ts.length+' مهمة';}
 el.innerHTML=ts.length?ts.map(tHTML).join(''):(q?emptyH('لا نتائج لـ "'+q+'"'):emptyH('لا توجد مهام'));
-	  lucide.createIcons();
+	  if(typeof lucide!=='undefined')lucide.createIcons();
 	}
 function setF(f){curFilter=f;document.querySelectorAll('.fbt').forEach(function(b){b.classList.remove('on');});document.querySelectorAll('.fbt').forEach(function(b){if(b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'"+f+"'")!==-1)b.classList.add('on');});renderTasks();}
 // ═══ HABITS ═══
@@ -1809,7 +1810,8 @@ function init(){
   }
   initTheme();renderAll();renderSettings();fUI();
 go('dash');
-	  lucide.createIcons();
+	  if(typeof lucide!=='undefined')lucide.createIcons();
+	  else document.addEventListener('DOMContentLoaded',function(){if(typeof lucide!=='undefined')lucide.createIcons();});
 	  setTimeout(function(){if(S.settings.overdueAlerts)chkOv();},2000);
 	  setTimeout(initPushNotif,4000);
 }
@@ -1901,6 +1903,17 @@ function startNotifCheck(){
 }
 
 init();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js')
+    .then(function(){ console.log('SW registered'); })
+    .catch(function(e){ console.log('SW error', e); });
+}
+// Ensure lucide loads before init
+window.addEventListener('load', function(){
+  if(typeof lucide!=='undefined') lucide.createIcons();
+});
 </script>
 </body>
 </html>
